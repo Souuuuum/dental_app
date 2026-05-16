@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <title>Clinic App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* 🔷 APP HEADER */
+        .header {
+            background: var(--main-gradient);
+            color: white;
+            padding: 40px 20px 100px;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* 🔷 STATS */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px;
+            border-radius: 20px;
+            flex: 1;
+            max-width: 160px;
+            text-align: center;
+            font-size: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .box b {
+            display: block;
+            font-size: 30px;
+            margin-top: 5px;
+        }
+
+        /* 🔷 MENU GRID */
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            padding: 20px;
+            margin-top: -60px;
+        }
+
+        .menu a {
+            background: var(--card-bg);
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu a:active {
+            transform: scale(0.92);
+            background: #f1f5f9;
+        }
+
+        /* 🔷 SECTION TITLE */
+        h3 {
+            padding: 20px 25px 5px;
+            margin: 0;
+            font-size: 35px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 🔷 CARD */
+        .card {
+            background: var(--card-bg);
+            margin: 15px 20px;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+            font-size: 30px;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+        }
+
+        /* 🔷 STATUS TAGS */
+        .status-done { color: var(--success); font-weight: bold; background: #ecfdf5; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+        .status-pending { color: var(--warning); font-weight: bold; background: #fffbeb; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+        .status-not { color: var(--danger); font-weight: bold; background: #fef2f2; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+
+        /* 🔷 INPUTS */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; color: var(--text-light); margin-bottom: 5px; margin-right: 5px; }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            box-sizing: border-box;
+            font-size: 30px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            
+        }
+
+        /* 🔷 BUTTONS */
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-save { background: var(--main-gradient); color: white; width: 100%; margin-top: 10px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+        .btn-no { background: #f1f5f9; color: var(--danger); width: 100%; margin-top: 10px; }
+        .btn-edit { background: #fffbeb; color: var(--warning); border: 1px solid #fde68a; margin-top: 10px; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 12px;
+            margin: 10px 0;
+            font-size: 30px;
+        }
+
+        @media(max-width:300px){
+            .menu { grid-template-columns: repeat(3, 1fr); font-size: 12px; }
+            .menu a { padding: 15px 5px; border-radius: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <a href="/logout/" style="
+background:white;
+padding:8px 12px;
+border-radius:10px;
+text-decoration:none;
+color:#333;
+font-size:14px;
+font-weight:bold;
+">
+🚪 خروج
+</a>
+    <h2>🏥 عيادة طب الأسنان</h2>
+     <div class="stats">
+        <div class="box">
+            
+            <span>💰المدفوع</span>
+            <b>{{ today_total }} دج</b>
+            <span>💰الباقي</span>
+            
+            <b>{{ t }} دج</b>
+        </div>
+
+        <div class="box">
+            <span>📅 المرضى</span>
+            <b>{{ today_patients|length }}</b>
+        </div>
+    </div>
+</div>
+
+<!-- 🔷 MENU -->
+<div class="menu">
+    <a href="/add/"><span>➕</span> إضافة</a>
+    <a href="/appointment/"><span>📅</span> موعد</a>
+    <a href="/appointments/"><span>📆</span> مواعيد</a>
+    <a href="/debts/"><span>💰</span> ديون</a>
+    <a href="/patients/"><span>👥</span> المرضى</a>
+</div>
+
+<h3>📌 مواعيد اليوم</h3>
+
+{% for p in today_patients %}
+<div class="card">
+    <div class="card-header">
+        <div>
+            <strong style="font-size: 30px;">👤 {{ p.first_name }} {{ p.last_name }}</strong>
+            {% if p.has_appointment %}
+                <div style="color:var(--warning); font-size: 20px;">📅 لديه موعد مسبق</div>
+            {% endif %}
+        </div>
+        
+        {% if p.session_status == "done" %}
+            <span class="status-done">✔ تمت</span>
+        {% elif p.session_status == "not_done" %}
+            <span class="status-not">❌ لم تتم</span>
+        {% else %}
+            <span class="status-pending">⏳ قادم</span>
+        {% endif %}
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <strong>💉 {{ p.treatment }}</strong>
+    </div>
+
+    {% if p.session_status == "done" %}
+        <div class="info-row">
+            <span>💰 {{ p.total_amount }}</span>
+            <span>💵 {{ p.paid_amount }}</span>
+            <span style="color: var(--danger);">💸 {{ p.remaining_amount }}</span>
+        </div>
+
+        <a href="/?edit={{ p.id }}" style="text-decoration: none;">
+            <button class="btn-edit">✏️ تعديل البيانات</button>
+        </a>
+
+    {% elif p.session_status == "not_done" %}
+        <a href="/?edit={{ p.id }}" style="text-decoration: none;">
+            <button class="btn-edit">✏️ تعديل الحالة</button>
+        </a>
+
+    {% endif %}
+
+    {% if p.session_status == "pending" %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="patient_id" value="{{ p.id }}">
+
+        <div class="form-group">
+            <label style="font-size: 30px;">اللقب و الإسم</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" name="last_name" value="{{ p.last_name }}" placeholder="اللقب">
+                
+                <input  type="text" name="first_name" value="{{ p.first_name }}" placeholder="الاسم">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label style="font-size: 30px;">نوع العلاج</label>
+            <input type="text" name="treatment" value="{{ p.treatment }}">
+        </div>
+
+        <div class="form-group" style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label style="font-size: 30px;">إجمالي المبلغ</label>
+                <input type="number" name="total_amount" value="{{ p.total_amount }}">
+            </div>
+            <div style="flex: 1;">
+                <label style="font-size: 30px;">المبلغ المدفوع</label>
+                <input type="number" name="paid_amount" value="{{ p.paid_amount }}">
+            </div>
+        </div>
+
+        <button class="btn-save" type="submit">💾 حفظ الجلسة وتأكيد</button>
+    </form>
+
+    <a href="/?not_done={{ p.id }}" style="text-decoration: none;">
+        <button class="btn-no">❌ المريض لم يحضر</button>
+    </a>
+
+    {% elif p.session_status != "pending" %}
+        <div style="text-align: center; margin-top: 15px;">
+            <small style="color: var(--success); font-weight: 600;">✔ تم تسجيل كافة البيانات بنجاح</small>
+        </div>
+    {% endif %}
+</div>
+{% endfor %}
+
+</body>
+</html>

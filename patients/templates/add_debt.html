@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>➕ إضافة دين جديد</title>
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --primary: #4f46e5;
+            --input-border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 30vh;
+            padding: 10px;
+            box-sizing: border-box;
+            
+        }
+        
+        .form-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 35px;
+            font-weight: 700;
+        }
+
+        .form-header p {
+            color: #64748b;
+            font-size: 25px;
+            margin-top: 5px;
+        }
+
+        /* 🔷 STYLING INPUTS */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 28px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+            margin-right: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 15px;
+            border: 2px solid var(--input-border);
+            box-sizing: border-box;
+            font-size: 24px;
+            transition: all 0.3s;
+            background: #fdfeff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        /* 🔷 BUTTON */
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--main-gradient);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 23px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <div class="form-header">
+        <h2>➕ إضافة دين يدوي</h2>
+        <p>قم بإدخال بيانات المريض والمبلغ المستحق</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <label>اللقب</label>
+            <input type="text" name="last_name" required>
+        </div>
+
+        <div class="input-group">
+            <label>الاسم</label>
+            <input type="text" name="first_name" required>
+        </div>
+
+        
+        <div class="input-group">
+            <label>نوع العلاج</label>
+            <input type="text" name="treatment" placeholder="مثال: تنظيف، حشو...">
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex: 1;">
+                <label>الإجمالي</label>
+                <input type="number" name="total_amount" placeholder="0.00">
+            </div>
+
+            <div class="input-group" style="flex: 1;">
+                <label>المدفوع</label>
+                <input type="number" name="paid_amount" placeholder="0.00">
+            </div>
+        </div>
+
+        <button type="submit">💾 حفظ البيانات</button>
+    </form>
+
+    <a href="/debts/" class="back-link">⬅ العودة لقائمة الديون</a>
+</div>
+
+</body>
+</html>

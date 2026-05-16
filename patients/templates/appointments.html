@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📅 مفكرة المواعيد الذكية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --primary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0; padding: 15px; color: var(--text-dark);
+        }
+
+        .header-box { text-align: center; margin-bottom: 20px; }
+        .back-link { text-decoration: none; color: var(--primary); font-weight: 600; }
+
+        /* 📅 الرزنامة */
+        .calendar-filter {
+            background: white; padding: 20px; border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px; text-align: center; border: 1px solid #e2e8f0;
+        }
+
+        .calendar-filter input[type="date"] {
+            padding: 12px; border-radius: 15px; border: 2px solid #e2e8f0;
+            width: 100%; max-width: 300px; outline: none; font-size: 30px;
+        }
+
+        .day-group { display: none; } 
+
+        .date-section {
+            background: #e2e8f0; color: #475569; padding: 8px 15px;
+            border-radius: 12px; margin: 20px 0 10px; font-size: 30px; font-weight: 700;
+        }
+
+        .card {
+            background: var(--card-bg); border-radius: 20px; padding: 18px;
+            margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;
+        }
+
+        .name { font-size:30px; font-weight: 700; margin-bottom: 4px; }
+        .treatment { color: #64748b; font-size: 25px; margin-bottom: 12px; }
+
+        /* الأزرار */
+         button {
+            padding: 12px; border: none; border-radius: 12px;
+            font-size: 30px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-done { background: var(--success); color: white; }
+        .btn-not { background: #fee2e2; color: var(--danger); }
+        .btn-edit { background: #eff6ff; color: var(--primary); border: 1px solid #dbeafe; }
+        .btn-today { background: var(--warning); color: white; grid-column: span 2; }
+        .btn-save { background: #1e293b; color: white; width: 100%; margin-top: 10px; }
+
+        .status-tag { font-size: 25px; font-weight: 800; padding: 4px 10px; border-radius: 50px; margin-bottom: 10px; display: inline-block; }
+        .done { background: #ecfdf5; color: var(--success); }
+        .not_done { background: #fef2f2; color: var(--danger); }
+        .pending { background: #fffbeb; color: var(--warning); }
+    </style>
+</head>
+
+<body>
+
+<div class="header-box">
+    <h2>📅 مفكرة المواعيد</h2>
+    <a href="/" class="back-link">⬅ رجوع للرئيسية</a>
+</div>
+
+<div class="calendar-filter">
+    <label style="display:block; margin-bottom:10px; font-weight:bold;">اختر اليوم المُراد عرضه:</label>
+    <input type="date" id="main-calendar" onchange="filterAppointments()">
+</div>
+
+<div id="appointments-container">
+    {% for day, patients in grouped.items %}
+        <div class="day-group" id="day-{{ day|date:'Y-m-d' }}">
+            <div class="date-section">📅 {{ day|date:"l d F Y" }}</div>
+
+            {% for p in patients %}
+            <div class="card">
+                <div class="name">{{ p.first_name }}</div>
+                <div class="treatment">💉 {{ p.treatment }}</div>
+
+                <div class="status-tag {% if p.session_status == 'done' %}done{% elif p.session_status == 'not_done' %}not_done{% else %}pending{% endif %}">
+                    {% if p.session_status == 'done' %} ✔ تم
+                    {% elif p.session_status == 'not_done' %} ✖ لم يتم
+                    {% else %} ⏳ قادم
+                    {% endif %}
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="patient_id" value="{{ p.id }}">
+
+                    <!-- 🟥 الماضي: بلا أزرار -->
+                    {% if day < today %}
+                        <div style="color: #94a3b8; font-size: 25px;">📁 سجل قديم (مؤرشف)</div>
+
+                    <!-- 🟨 اليوم: تم، لم يتم، تغيير، +اليوم -->
+                    {% elif day == today %}
+                        {% if p.session_status == "pending" %}
+                            <div class="btns-grid">
+                                <button class="btn-done" name="action" value="done">تم</button>
+                                <button class="btn-not" name="action" value="not_done">لم يتم</button>
+                                <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})">تغيير</button>
+                                
+                                {% if not p.added_to_today %}
+                                    <button class="btn-today" name="action" value="to_today">➕ لليوم</button>
+                                {% endif %}
+                            </div>
+                            
+                            {% if p.added_to_today %}
+                                <small style="color:var(--warning); display:block; margin-top:5px;">✔ تم إدخاله لليوم</small>
+                            {% endif %}
+
+                            <input id="date-{{ p.id }}" type="date" name="new_date" style="display:none; width:100%; padding:10px; margin-top:10px; border-radius:10px; border:1px solid #ccc;">
+                            <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">حفظ الموعد</button>
+                        {% else %}
+                            <div style="color: var(--success); font-weight: bold;">✔ تم تسجيل الحالة</div>
+                        {% endif %}
+
+                    <!-- 🟩 المستقبل: زر التغيير فقط -->
+                    {% else %}
+                        <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})" style="width:100%;">🗓 تغيير الموعد</button>
+                        <input id="date-{{ p.id }}" type="date" name="new_date" style="display:none; width:100%; padding:10px; margin-top:10px; border-radius:10px; border:1px solid #ccc;">
+                        <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">حفظ</button>
+                    {% endif %}
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<div id="no-appointments" style="text-align:center; padding:50px; color:#94a3b8; display:none;">
+    لا توجد مواعيد لهذا اليوم.
+</div>
+
+<script>
+    window.onload = function() {
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById('main-calendar').value = today;
+        filterAppointments();
+    };
+
+    function filterAppointments() {
+        let selectedDate = document.getElementById('main-calendar').value;
+        let dayGroups = document.querySelectorAll('.day-group');
+        let noDataMsg = document.getElementById('no-appointments');
+        let found = false;
+
+        dayGroups.forEach(group => {
+            if (group.id === "day-" + selectedDate) {
+                group.style.display = "block";
+                found = true;
+            } else {
+                group.style.display = "none";
+            }
+        });
+        noDataMsg.style.display = found ? "none" : "block";
+    }
+
+    function toggleDate(id){
+        let input = document.getElementById("date-" + id);
+        let save = document.getElementById("save-" + id);
+        input.style.display = (input.style.display === "block") ? "none" : "block";
+        save.style.display = (save.style.display === "block") ? "none" : "block";
+    }
+</script>
+
+</body>
+</html>

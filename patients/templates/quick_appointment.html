@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📅 أخذ موعد جديد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --primary: #4f46e5;
+            --input-border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            
+            color: var(--text-dark);
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 30px;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            transform: translateX(5px);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 25px 0;
+            color: var(--text-dark);
+            font-size: 35px;
+            font-weight: 800;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 30px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+            margin-right: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 15px;
+            border: 2px solid var(--input-border);
+            box-sizing: border-box;
+            font-size: 35px;
+            transition: all 0.3s;
+            background: #fdfeff;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--main-gradient);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 35px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a class="back" href="/">⬅ العودة للرئيسية</a>
+
+    <div class="card">
+
+        <h2>📅 حجز موعد جديد</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label>👤 اسم المريض الكامل</label>
+                <input type="text" name="name"  required>
+            </div>
+             
+            <div class="input-group">
+                <label>💉 الغرض من الزيارة</label>
+                <input type="text" name="treatment" >
+            </div>
+
+            <div class="input-group">
+                <label>📆 تاريخ الموعد</label>
+                <input type="date" name="appointment_date" required>
+            </div>
+
+            <button type="submit">💾 تأكيد وحفظ الموعد</button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

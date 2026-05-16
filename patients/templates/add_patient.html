@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة مريض جديد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --primary: #4f46e5;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            
+            color: var(--text-dark);
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px 25px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+            
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 25px 0;
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .input-group {
+            margin-bottom: 100px;
+            
+        }
+
+        label {
+            display: block;
+            font-size: 25px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+            margin-right: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            box-sizing: border-box;
+            font-size: 30px;
+            transition: all 0.3s;
+            background: #fdfdfd;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        /* 🔷 QUICK TREATMENTS */
+        .quick-treatments {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 1px dashed #cbd5e1;
+            font-size: 30px;
+        }
+
+        .quick-treatments small {
+            color: #64748b;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+            
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-treatments button {
+            width: auto;
+            margin: 0;
+            background: white;
+            color: var(--primary);
+            border: 1px solid #e2e8f0;
+            font-size: 30px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quick-treatments button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 🔷 SAVE BUTTON */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 18px;
+            background: var(--main-gradient);
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.96);
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a class="back" href="/">⬅ العودة للرئيسية</a>
+
+    <div class="card">
+
+        <h2>➕ إضافة مريض جديد</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div style="display: flex; gap: 15px; margin-bottom: 18px;">
+                <div style="flex: 1;">
+                    <label>👤 اللقب</label>
+                    <input type="text" name="last_name" >
+                </div>
+                <div style="flex: 1;">
+                    <label>👤 الاسم</label>
+                    <input type="text" name="first_name" >
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>💉 نوع العلاج الحالي</label>
+                <input id="treatment" type="text" name="treatment" placeholder="حشو، تنظيف..." required>
+            </div>
+
+            <div class="quick-treatments">
+                <small>⚡ اختيار سريع:</small>
+                <div class="tags-container">
+                    <button type="button" onclick="setTreatment('تنظيف')">تنظيف</button>
+                    <button type="button" onclick="setTreatment('حشو')">حشو</button>
+                    <button type="button" onclick="setTreatment('خلع')">خلع</button>
+                    <button type="button" onclick="setTreatment('تقويم')">تقويم</button>
+                    <button type="button" onclick="setTreatment('معاينة')">معاينة</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>📅 موعد المراجعة </label>
+                <input  style="font-size: 30px;" type="date" name="next_appointment" value="{{ today }}">
+            </div>
+
+            <button type="submit" class="btn-submit">💾 حفظ الملف ومتابعة</button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+function setTreatment(value){
+    let input = document.getElementById("treatment");
+    input.value = value;
+    // تأثير بصري بسيط عند الاختيار
+    input.style.borderColor = "#10b981";
+    setTimeout(() => { input.style.borderColor = "#6366f1"; }, 500);
+}
+</script>
+
+</body>
+</html>

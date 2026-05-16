@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>📄 ملف المريض | {{ name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --primary: #4f46e5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* 🔷 HEADER */
+        .page-header {
+            background: var(--main-gradient);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 35px 35px;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .page-header h2 { 
+            margin: 0; 
+            font-size: 35px; 
+            font-weight: 700;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 12px;
+            font-size: 25px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 🔷 TIMELINE STRUCTURE */
+        .timeline {
+            padding: 0 20px 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .visit-card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 12px;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .treatment-name {
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 26px;
+            display: block;
+        }
+
+        /* 🔷 STATUS TAGS */
+        .status {
+            font-size: 24px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 50px;
+            float: left;
+        }
+        .done { background: #ecfdf5; color: var(--success); }
+        .not { background: #fef2f2; color: var(--danger); }
+        .pending { background: #fffbeb; color: var(--warning); }
+
+        /* 🔷 MONEY DETAILS */
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .money-item {
+            text-align: center;
+        }
+
+        .money-item small {
+            display: block;
+            color: var(--text-light);
+            font-size: 24px;
+            margin-bottom: 3px;
+        }
+
+        .money-item span {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .debt-highlight {
+            color: var(--danger);
+            background: #fff1f2;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-light);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="page-header">
+    <a href="/patients/" class="back-btn">⬅ رجوع</a>
+    <h2>📄 ملف المريض</h2>
+    <div style="margin-top: 8px;  font-size:30px">{{ name }}</div>
+</div>
+
+<div class="timeline">
+    
+    {% for v in visits %}
+    <div class="visit-card">
+        {% if v.session_status == "done" %}
+            <span class="status done">✔ تمت</span>
+        {% elif v.session_status == "not_done" %}
+            <span class="status not">❌ لم تتم</span>
+        {% else %}
+            <span class="status pending">⏳ قادمة</span>
+        {% endif %}
+
+        <div class="date-badge">
+            📅 {{ v.next_appointment|date:"l d F Y" }}
+        </div>
+
+        <span class="treatment-name">💉 {{ v.treatment }}</span>
+
+        {% if v.session_status == "done" %}
+        <div class="money-grid">
+            <div class="money-item">
+                <small>الإجمالي</small>
+                <span>{{ v.total_amount }}</span>
+            </div>
+            <div class="money-item">
+                <small>المدفوع</small>
+                <span style="color: var(--success);">{{ v.paid_amount }}</span>
+            </div>
+            <div class="money-item">
+                <small>المتبقي</small>
+                <span class="debt-highlight">{{ v.remaining_amount }}</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <p>لا توجد زيارات مسجلة لهذا المريض بعد.</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
