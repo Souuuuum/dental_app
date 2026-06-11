@@ -7,116 +7,237 @@
 
     <style>
         :root {
-            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --primary: #4f46e5;
-            --input-border: #e2e8f0;
-        }
+            --emerald-50: #ecfdf5;
+            --emerald-100: #d1fae5;
+            --emerald-200: #a7f3d0;
+            --emerald-300: #6ee7b7;
+            --emerald-400: #34d399;
+            --emerald-500: #10b981;
+            --emerald-600: #059669;
+            --emerald-700: #047857;
+            --emerald-800: #065f46;
+            --emerald-900: #064e3b;
+            --teal-400: #2dd4bf;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --sky-400: #38bdf8;
+          }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
+          * {
             margin: 0;
             padding: 0;
-            
-            color: var(--text-dark);
-        }
-
-        .container {
+            box-sizing: border-box;
+          }
+          body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--emerald-50);
+            min-height: 100vh;
+            padding: 0;
+            color: var(--gray-800);
+            position: relative;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+          } /* دوائر خلفية */
+          body::before {
+            content: '';
+            position: fixed;
+            top: -220px;
+            left: -120px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+          }
+          body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+          }
+          .container {
             padding: 20px;
-            max-width: 750px;
+            max-width: 600px;
             margin: 0 auto;
-        }
+            position: relative;
+            z-index: 1;
+          } /* ═══ زر الرجوع ═══ */
 
-        .back {
+          .back {
             display: inline-flex;
             align-items: center;
+            gap: 6px;
             text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 30px;
-            transition: 0.3s;
-        }
+            color: var(--gray-500);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 16px;
+            padding: 10px 16px;
+            background: var(--white);
+            border-radius: 14px;
+            border: 1px solid var(--gray-100);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s;
+          }
+          .back:active {
+            color: var(--emerald-600);
+            background: var(--emerald-50);
+            border-color: var(--emerald-200);
+            transform: scale(0.96);
+          }
 
-        .back:hover {
-            transform: translateX(5px);
+          .card {
+            background: var(--white);
+            padding: 32px 22px 26px;
+            border-radius: 32px;
+            box-shadow: 0 20px 50px rgba(6, 78, 59, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--gray-100);
+            position: relative;
+            overflow: hidden;
+          } /* خط علوي متدرج */
+          .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #10b981, #34d399, #2dd4bf, #38bdf8);
+      
         }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            border: 1px solid #f1f5f9;
-        }
-
-        h2 {
+        .header-icon-wrap {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+          }
+          h2 {
             text-align: center;
-            margin: 0 0 25px 0;
-            color: var(--text-dark);
-            font-size: 35px;
-            font-weight: 800;
-        }
+            margin: 0 0 6px 0;
+            font-size: 25px;
+            font-weight: 900;
+            color: var(--gray-800);
+            letter-spacing: -0.3px;
+          }
+          .card-subtitle {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-bottom: 24px;
+          }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
+       
+        .form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+          }
+          .form-group {
+            flex: 1;
+          }
+          .form-group label {
             display: block;
-            font-size: 30px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 8px;
-            margin-right: 5px;
-        }
-
-        input {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray-500);
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+          }
+          .form-group input {
             width: 100%;
             padding: 14px 15px;
-            border-radius: 15px;
-            border: 2px solid var(--input-border);
+            border-radius: 16px;
+            border: 1.5px solid var(--gray-200);
             box-sizing: border-box;
-            font-size: 35px;
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            color: var(--gray-800);
             transition: all 0.3s;
-            background: #fdfeff;
-            font-family: inherit;
-        }
-
-        input:focus {
+            background: var(--gray-50);
+          }
+          .form-group input:focus {
             outline: none;
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            border-color: var(--emerald-400);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+          }
+          .form-group input::placeholder {
+            color: var(--gray-300);
         }
 
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--main-gradient);
-            color: white;
-            border: none;
-            border-radius: 18px;
-            font-size: 35px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.35);
-        }
-
-        button:active {
-            transform: scale(0.97);
-        }
-
+/* ═══ حقل التاريخ ═══ */
+            .form-group input[type='date'] {
+                color: var(--gray-700);
+                cursor: pointer;
+            } 
+       
+            .btn-submit {
+                width: 100%;
+                padding: 16px;
+                border: none;
+                border-radius: 18px;
+                background: linear-gradient(135deg, #059669, #047857);
+                color: white;
+                font-size: 16px;
+                font-weight: 800;
+                font-family: 'Tajawal', sans-serif;
+                cursor: pointer;
+                box-shadow: 0 8px 28px rgba(5, 150, 105, 0.3);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                margin-top: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                letter-spacing: -0.2px;
+              }
+              .btn-submit:active {
+                transform: scale(0.96);
+                box-shadow: 0 4px 14px rgba(5, 150, 105, 0.2);}
+                @media (max-width: 420px) {
+                    .container {
+                      padding: 14px;
+                    }
+                    .card {
+                      padding: 24px 14px 20px;
+                      border-radius: 26px;
+                    }
+                    .form-row {
+                      gap: 8px;
+                    }
+                    .tags-container .tag-btn {
+                      font-size: 12px; 
+                      padding: 7px 12px;
+                      border-radius: 12px;}
+                    .form-group input {
+                      padding: 12px 13px;
+                      font-size: 14px;
+                      border-radius: 14px;
+                    }
+                  }
     </style>
 </head>
 
@@ -127,28 +248,34 @@
     <a class="back" href="/">⬅ العودة للرئيسية</a>
 
     <div class="card">
-
+        <div class="header-icon-wrap">👤</div> 
         <h2>📅 حجز موعد جديد</h2>
+        <p class="card-subtitle">أدخل بيانات المريض والعلاج</p>
 
         <form method="POST">
             {% csrf_token %}
 
-            <div class="input-group">
-                <label>👤 اسم المريض الكامل</label>
-                <input type="text" name="name"  required>
-            </div>
+            <div class="form-row">
+                <div class="form-group">
+                  <label>👤 اللقب</label>
+                  <input type="text" name="last_name"  required />
+                  <label>👤 الاسم</label> 
+                  <input type="text" name="first_name"  required />
+                            </div></div>
              
-            <div class="input-group">
+            <div class="form-row">
+                <div class="form-group">
                 <label>💉 الغرض من الزيارة</label>
                 <input type="text" name="treatment" >
             </div>
-
-            <div class="input-group">
+        </div>
+            <div class="form-row">
+                <div class="form-group" style="margin-bottom: 10px;">
                 <label>📆 تاريخ الموعد</label>
                 <input type="date" name="appointment_date" required>
-            </div>
+            </div></div>
 
-            <button type="submit">💾 تأكيد وحفظ الموعد</button>
+            <button type="submit" class="btn-submit">💾 تأكيد وحفظ الموعد</button>
         </form>
 
     </div>

@@ -1,183 +1,567 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>📅 مفكرة المواعيد الذكية</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html> <html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" /> <title>📅 مفكرة المواعيد | عيادة طب الأسنان</title> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --primary: #4f46e5;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+      :root {
+        --emerald-50: #ecfdf5;
+        --emerald-100: #d1fae5;
+        --emerald-200: #a7f3d0;
+        --emerald-300: #6ee7b7;
+        --emerald-400: #34d399;
+        --emerald-500: #10b981;
+        --emerald-600: #059669;
+        --emerald-700: #047857;
+        --emerald-800: #065f46;
+        --emerald-900: #064e3b;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --gray-900: #0f172a;
+        --amber-400: #fbbf24;
+        --amber-500: #f59e0b;
+        --amber-600: #d97706;
+        --rose-400: #fb7185;
+        --rose-500: #f43f5e;
+        --sky-400: #38bdf8;
+        --sky-500: #0ea5e9;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Tajawal', sans-serif;
+        background: var(--emerald-50);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+        padding-bottom: 40px;
+      } /* دوائر زخرفية خلفية */
+      body::before {
+        content: '';
+        position: fixed;
+        top: -200px;
+        left: -100px;
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      }
+      body::after {
+        content: '';
+        position: fixed;
+        bottom: -150px;
+        right: -80px;
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .app {
+        max-width: 560px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      } /* ═══════ HEADER ═══════ */
+      .page-header {
+        background: linear-gradient(165deg, #064e3b 0%, #047857 30%, #059669 65%, #10b981 100%);
+        padding: 26px 20px 28px;
+        text-align: center;
+        border-radius: 0 0 40px 40px;
+        box-shadow: 0 16px 40px rgba(6, 78, 59, 0.18);
+        position: relative;
+        overflow: hidden;
+      }
+      .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -20px;
+        width: 160px;
+        height: 160px;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        border-radius: 50%;
+      }
+      .header-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .header-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.13);
+        backdrop-filter: blur(8px);
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .page-header h2 {
+        color: white;
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: -0.3px;
+        margin: 0;
+      }
+      .page-header .sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
+        font-weight: 500;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: all 0.2s;
+      }
+      .back-link:active {
+        background: rgba(255, 255, 255, 0.22);
+        transform: scale(0.95);
+      } /* ═══════ CALENDAR PICKER ═══════ */
+      .calendar-picker {
+        background: var(--white);
+        padding: 20px 18px;
+        border-radius: 24px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+        margin: -20px 16px 22px;
+        text-align: center;
+        border: 1px solid var(--gray-100);
+        position: relative;
+        z-index: 2;
+      }
+      .calendar-picker label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-500);
+        margin-bottom: 12px;
+      }
+      .calendar-picker label .pick-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--emerald-400);
+        animation: pulse-dot 2s infinite;
+      }
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            margin: 0; padding: 15px; color: var(--text-dark);
+        50% {
+          opacity: 0.3;
+          transform: scale(1.8);
         }
-
-        .header-box { text-align: center; margin-bottom: 20px; }
-        .back-link { text-decoration: none; color: var(--primary); font-weight: 600; }
-
-        /* 📅 الرزنامة */
-        .calendar-filter {
-            background: white; padding: 20px; border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 25px; text-align: center; border: 1px solid #e2e8f0;
+      }
+      .calendar-picker input[type='date'] {
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1.5px solid var(--gray-200);
+        width: 100%;
+        max-width: 280px;
+        font-size: 16px;
+        font-family: 'Tajawal', sans-serif;
+        color: var(--gray-800);
+        background: var(--gray-50);
+        outline: none;
+        transition: all 0.3s;
+        text-align: center;
+        cursor: pointer;
+      }
+      .calendar-picker input[type='date']:focus {
+        border-color: var(--emerald-400);
+        background: var(--white);
+        box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.08);
+      } /* ═══════ DATE SECTION ═══════ */
+      .date-section {
+        background: linear-gradient(135deg, var(--emerald-100), #d1fae5);
+        color: var(--emerald-800);
+        padding: 12px 18px;
+        border-radius: 16px;
+        margin: 10px 16px 14px;
+        font-size: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--emerald-200);
+      }
+      .date-section .cal-icon {
+        font-size: 22px;
+      } /* ═══════ APPOINTMENT CARD ═══════ */
+      .card {
+        background: var(--white);
+        border-radius: 22px;
+        padding: 18px;
+        margin: 0 16px 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--gray-100);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.25s;
+      }
+      .card::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 14px;
+        bottom: 14px;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+      }
+      .card.status-done::before {
+        background: var(--emerald-400);
+      }
+      .card.status-pending::before {
+        background: var(--amber-400);
+      }
+      .card.status-not_done::before {
+        background: var(--rose-400);
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .card-avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+        font-weight: 800;
+        color: var(--emerald-700);
+        flex-shrink: 0;
+      }
+      .card-name {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--gray-800);
+      }
+      .card-treatment {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--gray-600);
+        font-size: 13px;
+        font-weight: 600;
+        background: var(--gray-50);
+        padding: 7px 12px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      } /* ═══════ STATUS BADGE ═══════ */
+      .status-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .status-badge.done {
+        background: var(--emerald-100);
+        color: var(--emerald-600);
+      }
+      .status-badge.pending {
+        background: #fef3c7;
+        color: #b45309;
+      }
+      .status-badge.not_done {
+        background: #ffe4e6;
+        color: #be123c;
+      } /* ═══════ ARCHIVED ═══════ */
+      .archived-tag {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--gray-400);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 14px;
+        background: var(--gray-50);
+        border-radius: 12px;
+      } /* ═══════ COMPLETED ═══════ */
+      .completed-tag {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--emerald-600);
+        font-size: 14px;
+        font-weight: 700;
+        padding: 10px 14px;
+        background: var(--emerald-50);
+        border-radius: 12px;
+      } /* ═══════ BUTTONS ═══════ */
+      .btns-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .btns-grid .btn-today {
+        grid-column: span 2;
+      }
+      button,
+      .btn {
+        padding: 12px;
+        border: none;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Tajawal', sans-serif;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+      }
+      button:active,
+      .btn:active {
+        transform: scale(0.95);
+      }
+      .btn-done {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      }
+      .btn-not {
+        background: #fff1f2;
+        color: var(--rose-500);
+        border: 1px solid #fecdd3;
+      }
+      .btn-edit {
+        background: var(--white);
+        color: var(--sky-500);
+        border: 1.5px solid #bae6fd;
+      }
+      .btn-today {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+      }
+      .btn-save {
+        background: var(--gray-800);
+        color: white;
+        width: 100%;
+        margin-top: 8px;
+        box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+      }
+      .added-badge {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--amber-600);
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 8px;
+        background: #fffbeb;
+        padding: 6px 10px;
+        border-radius: 10px;
+      } /* ═══════ DATE INPUT HIDDEN ═══════ */
+      .hidden-date {
+        display: none;
+        width: 100%;
+        padding: 11px 14px;
+        margin-top: 8px;
+        border-radius: 14px;
+        border: 1.5px solid var(--gray-200);
+        font-family: 'Tajawal', sans-serif;
+        font-size: 14px;
+        color: var(--gray-800);
+        background: var(--gray-50);
+        outline: none;
+      }
+      .hidden-date:focus {
+        border-color: var(--emerald-400);
+        box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.08);
+      } /* ═══════ NO APPOINTMENTS ═══════ */
+      .no-data {
+        text-align: center;
+        padding: 50px 20px;
+        display: none;
+      }
+      .no-data-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 22px;
+        background: var(--emerald-100);
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+      }
+      .no-data h3 {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 4px;
+      }
+      .no-data p {
+        font-size: 13px;
+        color: var(--gray-400);
+      } /* ═══════ RESPONSIVE ═══════ */
+      @media (max-width: 420px) {
+        .page-header {
+          padding: 22px 14px 24px;
+          border-radius: 0 0 32px 32px;
         }
-
-        .calendar-filter input[type="date"] {
-            padding: 12px; border-radius: 15px; border: 2px solid #e2e8f0;
-            width: 100%; max-width: 300px; outline: none; font-size: 30px;
+        .page-header h2 {
+          font-size: 21px;
         }
-
-        .day-group { display: none; } 
-
-        .date-section {
-            background: #e2e8f0; color: #475569; padding: 8px 15px;
-            border-radius: 12px; margin: 20px 0 10px; font-size: 30px; font-weight: 700;
+        .calendar-picker {
+          margin: -16px 10px 18px;
+          padding: 16px 12px;
         }
-
         .card {
-            background: var(--card-bg); border-radius: 20px; padding: 18px;
-            margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;
+          margin: 0 10px 10px;
+          padding: 14px;
+          border-radius: 18px;
         }
-
-        .name { font-size:30px; font-weight: 700; margin-bottom: 4px; }
-        .treatment { color: #64748b; font-size: 25px; margin-bottom: 12px; }
-
-        /* الأزرار */
-         button {
-            padding: 12px; border: none; border-radius: 12px;
-            font-size: 30px; font-weight: 600; cursor: pointer; transition: 0.2s;
-        }
-        .btn-done { background: var(--success); color: white; }
-        .btn-not { background: #fee2e2; color: var(--danger); }
-        .btn-edit { background: #eff6ff; color: var(--primary); border: 1px solid #dbeafe; }
-        .btn-today { background: var(--warning); color: white; grid-column: span 2; }
-        .btn-save { background: #1e293b; color: white; width: 100%; margin-top: 10px; }
-
-        .status-tag { font-size: 25px; font-weight: 800; padding: 4px 10px; border-radius: 50px; margin-bottom: 10px; display: inline-block; }
-        .done { background: #ecfdf5; color: var(--success); }
-        .not_done { background: #fef2f2; color: var(--danger); }
-        .pending { background: #fffbeb; color: var(--warning); }
-    </style>
-</head>
-
-<body>
-
-<div class="header-box">
-    <h2>📅 مفكرة المواعيد</h2>
-    <a href="/" class="back-link">⬅ رجوع للرئيسية</a>
-</div>
-
-<div class="calendar-filter">
-    <label style="display:block; margin-bottom:10px; font-weight:bold;">اختر اليوم المُراد عرضه:</label>
-    <input type="date" id="main-calendar" onchange="filterAppointments()">
-</div>
-
-<div id="appointments-container">
-    {% for day, patients in grouped.items %}
-        <div class="day-group" id="day-{{ day|date:'Y-m-d' }}">
-            <div class="date-section">📅 {{ day|date:"l d F Y" }}</div>
-
-            {% for p in patients %}
-            <div class="card">
-                <div class="name">{{ p.first_name }}</div>
-                <div class="treatment">💉 {{ p.treatment }}</div>
-
-                <div class="status-tag {% if p.session_status == 'done' %}done{% elif p.session_status == 'not_done' %}not_done{% else %}pending{% endif %}">
-                    {% if p.session_status == 'done' %} ✔ تم
-                    {% elif p.session_status == 'not_done' %} ✖ لم يتم
-                    {% else %} ⏳ قادم
-                    {% endif %}
-                </div>
-
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="patient_id" value="{{ p.id }}">
-
-                    <!-- 🟥 الماضي: بلا أزرار -->
-                    {% if day < today %}
-                        <div style="color: #94a3b8; font-size: 25px;">📁 سجل قديم (مؤرشف)</div>
-
-                    <!-- 🟨 اليوم: تم، لم يتم، تغيير، +اليوم -->
-                    {% elif day == today %}
-                        {% if p.session_status == "pending" %}
-                            <div class="btns-grid">
-                                <button class="btn-done" name="action" value="done">تم</button>
-                                <button class="btn-not" name="action" value="not_done">لم يتم</button>
-                                <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})">تغيير</button>
-                                
-                                {% if not p.added_to_today %}
-                                    <button class="btn-today" name="action" value="to_today">➕ لليوم</button>
-                                {% endif %}
-                            </div>
-                            
-                            {% if p.added_to_today %}
-                                <small style="color:var(--warning); display:block; margin-top:5px;">✔ تم إدخاله لليوم</small>
-                            {% endif %}
-
-                            <input id="date-{{ p.id }}" type="date" name="new_date" style="display:none; width:100%; padding:10px; margin-top:10px; border-radius:10px; border:1px solid #ccc;">
-                            <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">حفظ الموعد</button>
-                        {% else %}
-                            <div style="color: var(--success); font-weight: bold;">✔ تم تسجيل الحالة</div>
-                        {% endif %}
-
-                    <!-- 🟩 المستقبل: زر التغيير فقط -->
-                    {% else %}
-                        <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})" style="width:100%;">🗓 تغيير الموعد</button>
-                        <input id="date-{{ p.id }}" type="date" name="new_date" style="display:none; width:100%; padding:10px; margin-top:10px; border-radius:10px; border:1px solid #ccc;">
-                        <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">حفظ</button>
-                    {% endif %}
-                </form>
-            </div>
-            {% endfor %}
+      }
+   
+</style>
+  </head>
+   <body>
+    <div class="app">
+      <!-- ═══════ HEADER ═══════ --> 
+      <header class="page-header">
+        <div class="header-inner">
+          <div class="header-icon">📅</div>
+           <h2>مفكرة المواعيد</h2> 
+           <p class="sub">إدارة ذكية لجدول العيادة</p> 
+          <a href="/" class="back-link">← العودة للرئيسية</a>
         </div>
-    {% endfor %}
-</div>
-
-<div id="no-appointments" style="text-align:center; padding:50px; color:#94a3b8; display:none;">
-    لا توجد مواعيد لهذا اليوم.
-</div>
-
-<script>
-    window.onload = function() {
-        let today = new Date().toISOString().split('T')[0];
-        document.getElementById('main-calendar').value = today;
-        filterAppointments();
-    };
-
-    function filterAppointments() {
-        let selectedDate = document.getElementById('main-calendar').value;
-        let dayGroups = document.querySelectorAll('.day-group');
-        let noDataMsg = document.getElementById('no-appointments');
-        let found = false;
-
-        dayGroups.forEach(group => {
-            if (group.id === "day-" + selectedDate) {
-                group.style.display = "block";
-                found = true;
-            } else {
-                group.style.display = "none";
-            }
-        });
-        noDataMsg.style.display = found ? "none" : "block";
-    }
-
-    function toggleDate(id){
-        let input = document.getElementById("date-" + id);
-        let save = document.getElementById("save-" + id);
-        input.style.display = (input.style.display === "block") ? "none" : "block";
-        save.style.display = (save.style.display === "block") ? "none" : "block";
-    }
-</script>
-
-</body>
+      </header> <!-- ═══════ CALENDAR PICKER ═══════ --> <div class="calendar-picker">
+        <label><span class="pick-dot"></span> اختر اليوم المُراد عرضه</label> <input type="date" id="main-calendar" onchange="filterAppointments()" />
+      </div> <!-- ═══════ APPOINTMENTS ═══════ --> <div id="appointments-container">
+        {% for day, patients in grouped.items %}
+          <div class="day-group" id="day-{{ day|date:'Y-m-d' }}">
+            <div class="date-section">
+              <span class="cal-icon">📅</span> {{ day|date:'l d F Y' }}
+            </div> {% for p in patients %}
+              <div class="card {% if p.session_status == 'done' %}
+                  status-done
+                {% elif p.session_status == 'not_done' %}
+                  status-not_done
+                {% else %}
+                  status-pending
+                {% endif %}">
+                <!-- الصف العلوي: اسم + حالة --> <div class="card-top">
+                  <div class="card-avatar-row">
+                    <div class="card-avatar">{{ p.first_name|slice:':1' }}</div> <span class="card-name">{{ p.first_name }} {{ p.last_name }}</span>
+                  </div> <span class="status-badge {% if p.session_status == 'done' %}
+                      done
+                    {% elif p.session_status == 'not_done' %}
+                      not_done
+                    {% else %}
+                      pending
+                    {% endif %}">
+                    {% if p.session_status == 'done' %}
+                       ✔ مكتمل
+                    {% elif p.session_status == 'not_done' %}
+                       ✘ ملغي
+                    {% else %}
+                      ⏳ قيد الانتظار
+                    {% endif %}
+                  </span>
+                </div> <!-- العلاج --> <div class="card-treatment">🦷 {{ p.treatment }}</div> <!-- الفورم --> <form method="post">
+                  {% csrf_token %} <input type="hidden" name="patient_id" value="{{ p.id }}" /> <!-- 🟥 الماضي --> {% if day < today %}
+                    <div class="archived-tag">📁 سجل قديم (مؤرشف)</div> <!-- 🟨 اليوم -->
+                  {% elif day == today %}
+                    {% if p.session_status == 'pending' %}
+                      <div class="btns-grid">
+                        <button class="btn-done" name="action" value="done">✔ تم</button> <button class="btn-not" name="action" value="not_done">✘ لم يتم</button> <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})">📆 تغيير الموعد</button> {% if not p.added_to_today %}
+                          <button class="btn-today" name="action" value="to_today">➕ إضافة لليوم</button>
+                        {% endif %}
+                      </div> {% if p.added_to_today %}
+                        <div class="added-badge">✔ تم إدخاله لليوم</div>
+                      {% endif %} <input id="date-{{ p.id }}" class="hidden-date" type="date" name="new_date" /> <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">💾 حفظ الموعد الجديد</button>
+                    {% else %}
+                      <div class="completed-tag">✔ تم تسجيل الحالة بنجاح</div>
+                    {% endif %} <!-- 🟩 المستقبل -->
+                  {% else %}
+                    <button class="btn-edit" type="button" onclick="toggleDate({{ p.id }})" style="width:100%;">📆 تغيير الموعد</button> <input id="date-{{ p.id }}" class="hidden-date" type="date" name="new_date" /> <button id="save-{{ p.id }}" class="btn-save" name="action" value="reschedule" style="display:none;">💾 حفظ الموعد الجديد</button>
+                  {% endif %}
+                </form>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div> <!-- ═══════ NO APPOINTMENTS ═══════ --> <div id="no-appointments" class="no-data">
+        <div class="no-data-icon">📋</div> <h3>لا توجد مواعيد</h3> <p>لا توجد مواعيد مسجلة لهذا اليوم</p>
+      </div>
+    </div> <script>
+             window.onload = function () {
+               let today = new Date().toISOString().split('T')[0]
+               document.getElementById('main-calendar').value = today
+               filterAppointments()
+             }
+             function filterAppointments() {
+               let selectedDate = document.getElementById('main-calendar').value
+               let dayGroups = document.querySelectorAll('.day-group')
+               let noDataMsg = document.getElementById('no-appointments')
+               let found = false
+               dayGroups.forEach((group) => {
+                 if (group.id === 'day-' + selectedDate) {
+                   group.style.display = 'block'
+                   found = true
+                 } else {
+                   group.style.display = 'none'
+                 }
+               })
+               noDataMsg.style.display = found ? 'none' : 'block'
+             }
+             function toggleDate(id) {
+               let input = document.getElementById('date-' + id)
+               let save = document.getElementById('save-' + id)
+               let isHidden = input.style.display === 'none' || input.style.display === ''
+               input.style.display = isHidden ? 'block' : 'none'
+               save.style.display = isHidden ? 'flex' : 'none'
+               if (isHidden) {
+                 input.focus()
+               }
+             }
+           </script>
+  </body>
 </html>

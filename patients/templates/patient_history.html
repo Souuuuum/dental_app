@@ -7,56 +7,145 @@
 
     <style>
         :root {
-            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --primary: #4f46e5;
-        }
+            --emerald-50: #ecfdf5;
+            --emerald-100: #d1fae5;
+            --emerald-200: #a7f3d0;
+            --emerald-300: #6ee7b7;
+            --emerald-400: #34d399;
+            --emerald-500: #10b981;
+            --emerald-600: #059669;
+            --emerald-700: #047857;
+            --emerald-800: #065f46;
+            --emerald-900: #064e3b;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --amber-400: #fbbf24;
+            --amber-500: #f59e0b;
+            --amber-600: #d97706;
+            --rose-400: #fb7185;
+            --rose-500: #f43f5e;
+            --sky-400: #38bdf8;
+            --sky-500: #0ea5e9;
+          }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            margin: 0;
-            padding: 0;
-            color: var(--text-dark);
-        }
+          body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--emerald-50);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 40px;
+          } /* دوائر زخرفية خلفية */
+          body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -100px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+          }
+          body::after {
+            content: '';
+            position: fixed;
+            bottom: -150px;
+            right: -80px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+          }
+          .app {
+            max-width: 560px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+          } 
 
         /* 🔷 HEADER */
         .page-header {
-            background: var(--main-gradient);
-            color: white;
-            padding: 40px 20px;
+            background: linear-gradient(165deg, #064e3b 0%, #047857 30%, #059669 65%, #10b981 100%);
+            padding: 26px 20px 28px;
             text-align: center;
-            border-radius: 0 0 35px 35px;
-            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15);
-            margin-bottom: 30px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 16px 40px rgba(6, 78, 59, 0.18);
             position: relative;
-        }
-
-        .page-header h2 { 
-            margin: 0; 
-            font-size: 35px; 
-            font-weight: 700;
-        }
-
-        .back-btn {
+            overflow: hidden;
+          }
+          .page-header::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: -50px;
+            right: -20px;
+            width: 160px;
+            height: 160px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+          }
+          .header-inner {
+            position: relative;
+            z-index: 1;
+          }
+          .header-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 17px;
+            background: rgba(255, 255, 255, 0.13);
+            backdrop-filter: blur(8px);
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+          }
+          .page-header h2 {
             color: white;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 12px;
             font-size: 25px;
-            backdrop-filter: blur(5px);
-        }
-
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            margin: 0;
+          }
+          .page-header .sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 4px;
+            font-weight: 500;
+          }
+          .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.2s;
+          }
+          .back-link:active {
+            background: rgba(255, 255, 255, 0.22);
+            transform: scale(0.95);
+          }
         /* 🔷 TIMELINE STRUCTURE */
         .timeline {
             padding: 0 20px 40px;
@@ -64,78 +153,104 @@
             margin: 0 auto;
         }
 
-        .visit-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            border: 1px solid #f1f5f9;
+        .card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 18px;
+            margin: 0 16px 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--gray-100);
             position: relative;
-            transition: transform 0.2s;
-        }
-
+            overflow: hidden;
+            transition: all 0.25s;
+          }
+          .card::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 14px;
+            bottom: 14px;
+            width: 4px;
+            border-radius: 0 4px 4px 0;
+          }
+          
         .date-badge {
-            display: inline-block;
-            background: #eef2ff;
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 12px;
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--emerald-100), #d1fae5);
+        color: var(--emerald-800);
+        padding: 12px 18px;
+        border-radius: 16px;
+        margin: 10px 16px 14px;
+        font-size: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--emerald-200);
+    
         }
 
         .treatment-name {
-            font-size: 23px;
-            font-weight: 700;
-            margin-bottom: 26px;
-            display: block;
+             display: block;
+        font-size: 20px;
+        font-weight: 700;
+        color: black;
+        margin-bottom: 5px;
+        letter-spacing: 0.3px;
         }
 
         /* 🔷 STATUS TAGS */
         .status {
-            font-size: 24px;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 50px;
+            padding: 12px 18px;
+            margin: 10px 16px 14px;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: 700;
+        white-space: nowrap;
             float: left;
         }
-        .done { background: #ecfdf5; color: var(--success); }
-        .not { background: #fef2f2; color: var(--danger); }
-        .pending { background: #fffbeb; color: var(--warning); }
+        .done { 
+            background: var(--emerald-100);
+            color: var(--emerald-600); }
+        .not {
+            background: #ffe4e6;
+            color: #be123c;}
+        .pending { 
+            background: #fef3c7;
+        color: #b45309; }
 
         /* 🔷 MONEY DETAILS */
         .money-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #e2e8f0;
+            display: flex;
+        gap: 8px;
         }
 
         .money-item {
-            text-align: center;
+            flex: 1;
+        background: var(--gray-50);
+        border-radius: 12px;
+        padding: 10px 8px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
         }
 
         .money-item small {
+            font-size: 15px;
+            font-weight: 800;
             display: block;
-            color: var(--text-light);
-            font-size: 24px;
-            margin-bottom: 3px;
+            color: var(--gray-800);
+            margin-top: 2px;
         }
 
         .money-item span {
             font-weight: 700;
+            
             font-size: 24px;
         }
 
         .debt-highlight {
-            color: var(--danger);
-            background: #fff1f2;
-            padding: 2px 6px;
-            border-radius: 6px;
+            color: var(--rose-500);
         }
 
         .empty-state {
@@ -143,22 +258,41 @@
             padding: 50px 20px;
             color: var(--text-light);
         }
+        @media (max-width: 420px) {
+            .page-header {
+              padding: 22px 14px 24px;
+              border-radius: 0 0 32px 32px;
+            }
+            .page-header h2 {
+              font-size: 21px;
+            }
+            
+            .card {
+              margin: 0 10px 10px;
+              padding: 14px;
+              border-radius: 18px;
+            }
+          }
 
     </style>
 </head>
 
 <body>
-
+    <div class="app">
 <div class="page-header">
-    <a href="/patients/" class="back-btn">⬅ رجوع</a>
-    <h2>📄 ملف المريض</h2>
-    <div style="margin-top: 8px;  font-size:30px">{{ name }}</div>
+    <div class="header-inner">
+        <a href="/patients/"  class="back-link">← العودة </a>
+    
+        <div class="header-icon">📄</div>
+        <h2> ملف المريض</h2>
+        <h2>{{ name }}</h2>
+</div>
 </div>
 
 <div class="timeline">
     
     {% for v in visits %}
-    <div class="visit-card">
+    <div class="card">
         {% if v.session_status == "done" %}
             <span class="status done">✔ تمت</span>
         {% elif v.session_status == "not_done" %}
@@ -181,7 +315,7 @@
             </div>
             <div class="money-item">
                 <small>المدفوع</small>
-                <span style="color: var(--success);">{{ v.paid_amount }}</span>
+                <span >{{ v.paid_amount }}</span>
             </div>
             <div class="money-item">
                 <small>المتبقي</small>

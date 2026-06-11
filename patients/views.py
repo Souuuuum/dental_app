@@ -63,21 +63,21 @@ def home(request):
         p.session_status = "done"
         p.save()
 
-        return redirect('/')
+        return redirect('/#p' + str(patient_id))
 
     # ✏️ تعديل
     if "edit" in request.GET:
         p = Patient.objects.get(id=request.GET.get("edit"))
         p.session_status = "pending"
         p.save()
-        return redirect('/')
+        return redirect('/#p' + request.GET.get("edit"))
 
     # ❌ لم تتم
     if "not_done" in request.GET:
         p = Patient.objects.get(id=request.GET.get("not_done"))
         p.session_status = "not_done"
         p.save()
-        return redirect('/')
+        return redirect('/#p' + request.GET.get("not_done"))
 
     return render(request, 'home.html', {
         'today_patients': today_patients,
@@ -105,8 +105,8 @@ def add_patient(request):
 def quick_appointment(request):
     if request.method == 'POST':
         Patient.objects.create(
-            first_name=request.POST.get('name'),
-            last_name="",
+            first_name=request.POST.get('first_name'),
+            last_name=request.POST.get('last_name'),
             treatment=request.POST.get('treatment'),
             total_amount=0,
             paid_amount=0,
@@ -288,29 +288,37 @@ def search_patients_api(request):
         })
 
     # 🔍 البحث بالاسم (فقط إذا ما كاش تاريخ)
+# 🔍 البحث بالاسم
     if query:
         parts = query.split()
-        patients = Patient.objects.all()
 
         if len(parts) == 1:
-            patients = patients.filter(
+            patients = Patient.objects.filter(
                 Q(first_name__icontains=parts[0]) |
                 Q(last_name__icontains=parts[0])
             )
+
         else:
-            patients = patients.filter(
-                first_name__icontains=parts[0],
-                last_name__icontains=parts[1]
+            patients = Patient.objects.filter(
+                (
+                    Q(first_name__icontains=parts[0]) &
+                    Q(last_name__icontains=parts[1])
+                ) |
+                (
+                    Q(first_name__icontains=parts[1]) &
+                    Q(last_name__icontains=parts[0])
+                )
             )
 
-        data = list(patients.values(
-            'first_name',
-            'last_name'
-        ).distinct())
+        data = list(
+            patients.values(
+                'first_name',
+                'last_name'
+            ).distinct()
+        )
 
         return JsonResponse({
             'mode': 'search',
             'patients': data
         })
-
     return JsonResponse({'patients': []}) 

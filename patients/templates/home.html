@@ -1,328 +1,799 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <title>Clinic App</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html> <html dir="rtl" lang="ar">
+  <head>
+    <title>عيادة طب الأسنان</title> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /> 
     <style>
-        :root {
-            --main-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+      :root {
+        --emerald-50: #ecfdf5;
+        --emerald-100: #d1fae5;
+        --emerald-200: #a7f3d0;
+        --emerald-300: #6ee7b7;
+        --emerald-400: #34d399;
+        --emerald-500: #10b981;
+        --emerald-600: #059669;
+        --emerald-700: #047857;
+        --emerald-800: #065f46;
+        --emerald-900: #064e3b;
+        --teal-400: #2dd4bf;
+        --teal-500: #14b8a6;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --amber-400: #fbbf24;
+        --amber-500: #f59e0b;
+        --rose-400: #fb7185;
+        --rose-500: #f43f5e;
+        --sky-400: #38bdf8;
+        --sky-500: #0ea5e9;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Tajawal', sans-serif;
+        background: var(--emerald-50);
+        min-height: 100vh;
+        -webkit-tap-highlight-color: transparent;
+        overflow-x: hidden;
+      } /* 🌿 خلفية متحركة */
+      body::before {
+        content: '';
+        position: fixed;
+        top: -250px;
+        left: -150px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      }
+      body::after {
+        content: '';
+        position: fixed;
+        bottom: -200px;
+        right: -100px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(20, 184, 166, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      } /* 📱 الحاوية */
+      .app {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 0 40px;
+        position: relative;
+        z-index: 1;
+      } /* ============ HEADER ============ */
+      .hero {
+        background: linear-gradient(165deg, #064e3b 0%, #047857 30%, #059669 65%, #10b981 100%);
+        padding: 24px 20px 130px;
+        border-radius: 0 0 50px 50px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(6, 78, 59, 0.25);
+      } /* دوائر زخرفية */
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -40px;
+        width: 250px;
+        height: 250px;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+      }
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: -30px;
+        width: 180px;
+        height: 180px;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        border-radius: 50%;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+      } /* صف علوي */
+      .hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand-icon {
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .brand-name {
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .hero-btn {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: white;
+        text-decoration: none;
+      } 
+      .
+      .hero-btn:active {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(0.92);
+      } /* العنوان */
+      .hero-title-area {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .hero-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.9);
+        padding: 5px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        letter-spacing: 0.3px;
+      }
+      .hero-title {
+        color: white;
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        margin: 0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .hero-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 6px;
+      } /* ============ KPI CARDS ============ */
+      .kpi-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        padding: 0 16px;
+        margin-top: -75px;
+        position: relative;
+        z-index: 3;
+      }
+      .kpi-card {
+        background: var(--white);
+        border-radius: 22px;
+        padding: 18px 10px;
+        text-align: center;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--gray-100);
+        transition: transform 0.25s;
+        position: relative;
+        width: 100px;
+        height: 90px;
+        overflow: hidden;
+      }
+      .kpi-card:active {
+        transform: translateY(-2px);
+      }
+      .kpi-card .kpi-dot {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+      .kpi-dot.green {
+        background: var(--emerald-400);
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+      }
+      .kpi-dot.amber {
+        background: var(--amber-400);
+        box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+      }
+      .kpi-dot.sky {
+        background: var(--sky-400);
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+      }
+      .kpi-icon {
+        width: 10px;
+        height: 10px;
+        border-radius: 14px;
+        margin: 0 auto 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+      .kpi-icon.green-bg {
+        background: var(--emerald-100);
+      }
+      .kpi-icon.amber-bg {
+        background: #fef3c7;
+      }
+      .kpi-icon.sky-bg {
+        background: #e0f2fe;
+      }
+      .kpi-value {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--gray-800);
+        display: block;
+        letter-spacing: -0.3px;
+      }
+      .kpi-label {
+        font-size: 11px;
+        color: var(--gray-400);
+        font-weight: 600;
+        margin-top: 2px;
+        letter-spacing: 0.2px;
+      } /* ============ MENU GRID ============ */
+      .menu-section {
+        padding: 20px 16px;
+      }
+      .menu-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-400);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+        padding-right: 4px;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      .menu-card {
+        background: var(--white);
+        border-radius: 22px;
+        padding: 22px 8px;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--gray-800);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--gray-100);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .menu-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .menu-card:active {
+        transform: scale(0.93);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+      .menu-card:active::after {
+        opacity: 1;
+      }
+      .menu-icon-circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        transition: transform 0.3s;
+      }
+      .menu-card:active .menu-icon-circle {
+        transform: scale(0.9);
+      }
+      .menu-icon-green {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      }
+      .menu-icon-teal {
+        background: linear-gradient(135deg, #ccfbf1, #99f6e4);
+      }
+      .menu-icon-amber {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+      }
+      .menu-icon-sky {
+        background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      }
+      .menu-icon-rose {
+        background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+      }
+      .menu-icon-indigo {
+        background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+      }
+      .menu-title {
+        font-size: 14px;
+        font-weight: 700;
+        display: block;
+        color: var(--gray-800);
+      } /* ============ TODAY SECTION ============ */
+      .today-section {
+        padding: 0 16px 20px;
+      }
+      .today-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .today-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--gray-800);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .today-title .dot-live {
+        width: 10px;
+        height: 10px;
+        background: var(--emerald-400);
+        border-radius: 50%;
+        animation: pulse-dot 2s infinite;
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+      }
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
         }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-dark);
-            line-height: 1.6;
+        50% {
+          opacity: 0.5;
+          transform: scale(1.5);
         }
-
-        /* 🔷 APP HEADER */
-        .header {
-            background: var(--main-gradient);
-            color: white;
-            padding: 40px 20px 100px;
-            text-align: center;
-            border-radius: 0 0 40px 40px;
-            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
-        }
-
-        .header h2 {
-            margin: 0;
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        /* 🔷 STATS */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 15px;
-            border-radius: 20px;
-            flex: 1;
-            max-width: 160px;
-            text-align: center;
-            font-size: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .box b {
-            display: block;
-            font-size: 30px;
-            margin-top: 5px;
-        }
-
-        /* 🔷 MENU GRID */
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 12px;
-            padding: 20px;
-            margin-top: -60px;
-        }
-
-        .menu a {
-            background: var(--card-bg);
-            padding: 20px 10px;
-            text-align: center;
-            border-radius: 24px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            font-size: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .menu a:active {
-            transform: scale(0.92);
-            background: #f1f5f9;
-        }
-
-        /* 🔷 SECTION TITLE */
-        h3 {
-            padding: 20px 25px 5px;
-            margin: 0;
-            font-size: 35px;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* 🔷 CARD */
-        .card {
-            background: var(--card-bg);
-            margin: 15px 20px;
-            padding: 20px;
-            border-radius: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
-            border: 1px solid #f1f5f9;
-            font-size: 30px;
-        }
-
-        .card-header {
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-        }
-
-        /* 🔷 STATUS TAGS */
-        .status-done { color: var(--success); font-weight: bold; background: #ecfdf5; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-        .status-pending { color: var(--warning); font-weight: bold; background: #fffbeb; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-        .status-not { color: var(--danger); font-weight: bold; background: #fef2f2; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-
-        /* 🔷 INPUTS */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 13px; color: var(--text-light); margin-bottom: 5px; margin-right: 5px; }
+      }
+      .today-count {
+        background: var(--emerald-100);
+        color: var(--emerald-700);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+      } /* ============ APPOINTMENT CARD ============ */
+      .apt-card {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 18px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--gray-100);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+      .apt-card:active {
+        transform: scale(0.98);
+      } /* شريط الحالة الجانبي */
+      .apt-card::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 16px;
+        bottom: 16px;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+      }
+      .apt-card.done::before {
+        background: var(--emerald-400);
+      }
+      .apt-card.pending::before {
+        background: var(--amber-400);
+      }
+      .apt-card.cancelled::before {
+        background: var(--rose-400);
+      }
+      .apt-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .apt-avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .apt-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--emerald-700);
+      }
+      .apt-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--gray-800);
+      }
+      .apt-time {
+        font-size: 12px;
+        color: var(--gray-400);
+        font-weight: 500;
+      }
+      .apt-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .apt-badge.done {
+        background: var(--emerald-100);
+        color: var(--emerald-600);
+      }
+      .apt-badge.pending {
+        background: #fef3c7;
+        color: #b45309;
+      }
+      .apt-badge.cancelled {
+        background: #ffe4e6;
+        color: #be123c;
+      }
+      .apt-detail-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: var(--gray-50);
+        border-radius: 14px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .apt-detail-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--emerald-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+      .apt-money {
+        display: flex;
+        gap: 8px;
+      }
+      .money-item {
+        flex: 1;
+        background: var(--gray-50);
+        border-radius: 12px;
+        padding: 10px 8px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
+      }
+      .money-item .amount {
+        font-size: 15px;
+        font-weight: 800;
+        display: block;
+        color: var(--gray-800);
+        margin-top: 2px;
+      }
+      .money-item.danger .amount {
+        color: var(--rose-500);
+      } /* ============ BUTTONS ============ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 22px;
+        border-radius: 16px;
+        border: none;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s;
+        width: 100%;
+        text-decoration: none;
+      }
+      .btn:active {
+        transform: scale(0.95);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #059669, #047857);
+        color: white;
+        box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
+      }
+      .btn-outline {
+        background: var(--white);
+        color: var(--emerald-600);
+        border: 1.5px solid var(--emerald-200);
+      }
+      .btn-ghost {
+        background: var(--gray-50);
+        color: var(--gray-600);
+      }
+      .btn-danger-ghost {
+        background: #fff1f2;
+        color: var(--rose-500);
+      }
+      .btn-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      } /* ============ FORM ============ */
+      .form-section {
+        margin-top: 10px;
+      }
+      .form-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .form-group {
+        flex: 1;
+      }
+      .form-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--gray-400);
+        margin-bottom: 5px;
+        letter-spacing: 0.3px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 14px;
+        border: 1.5px solid var(--gray-200);
+        background: var(--gray-50);
+        font-size: 15px;
+        font-family: 'Tajawal', sans-serif;
+        color: var(--gray-800);
+        transition: all 0.25s;
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--emerald-400);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+      } /* ============ EMPTY STATE ============ */
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .empty-icon-wrap {
+        width: 80px;
+        height: 80px;
+        border-radius: 28px;
+        background: var(--emerald-100);
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+      }
+      .empty-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 6px;
+      }
+      .sgn-imgg{
+          position: fixed;
+          bottom:1px;
+          right:15px;
+          width: 100px;
+     
+      }
+      .empty-desc {
+        font-size: 14px;
+        color: var(--gray-400);
+        margin-bottom: 20px;
         
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
-            box-sizing: border-box;
-            font-size: 30px;
-            transition: all 0.3s;
+      } /* ============ RESPONSIVE ============ */
+      @media (max-width: 380px) {
+        .hero {
+          padding: 18px 14px 110px;
+          border-radius: 0 0 36px 36px;
         }
-
-        input:focus {
-            outline: none;
-            border-color: #6366f1;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-            
+        .hero-title {
+          font-size: 26px;
         }
-
-        /* 🔷 BUTTONS */
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        .kpi-row {
+          gap: 6px;
+          padding: 0 10px;
+          margin-top: -55px;
         }
-
-        .btn-save { background: var(--main-gradient); color: white; width: 100%; margin-top: 10px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
-        .btn-no { background: #f1f5f9; color: var(--danger); width: 100%; margin-top: 10px; }
-        .btn-edit { background: #fffbeb; color: var(--warning); border: 1px solid #fde68a; margin-top: 10px; }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            background: #f8fafc;
-            padding: 10px;
-            border-radius: 12px;
-            margin: 10px 0;
-            font-size: 30px;
+        .kpi-card {
+          padding: 14px 6px;
+          border-radius: 18px;
         }
-
-        @media(max-width:300px){
-            .menu { grid-template-columns: repeat(3, 1fr); font-size: 12px; }
-            .menu a { padding: 15px 5px; border-radius: 20px; }
+        .kpi-value {
+          font-size: 20px;
         }
-    </style>
-</head>
-
-<body>
-
-<div class="header">
-    <a href="/logout/" style="
-background:white;
-padding:8px 12px;
-border-radius:10px;
-text-decoration:none;
-color:#333;
-font-size:14px;
-font-weight:bold;
-">
-🚪 خروج
-</a>
-    <h2>🏥 عيادة طب الأسنان</h2>
-     <div class="stats">
-        <div class="box">
-            
-            <span>💰المدفوع</span>
-            <b>{{ today_total }} دج</b>
-            <span>💰الباقي</span>
-            
-            <b>{{ t }} دج</b>
+        .menu-grid {
+          gap: 8px;
+        }
+        .menu-card {
+          padding: 16px 4px;
+          border-radius: 18px;
+        }
+        .menu-icon-circle {
+          width: 46px;
+          height: 46px;
+          font-size: 22px;
+          border-radius: 14px;
+        }
+        .menu-title {
+          font-size: 12px;
+        }
+      }
+</style>
+  </head>
+   <body>
+   
+   
+    <div class="app">
+      <!-- ═══════════ HERO ═══════════ --> <header class="hero">
+        <img src="/static/img/soums.png" alt="By Souum" class="sgn-imgg">
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="brand">
+              <div class="brand-icon">🦷</div> <span class="brand-name"></span>
+            </div> <div class="hero-actions">
+              <a href="/logout/" class="hero-btn" title="تسجيل خروج">🚪</a>
+              <!-- 
+               <div class="hero-btn">🔔</div> -->
+            </div>
+          </div> <div class="hero-title-area">
+            <span class="hero-badge">✨ نظام إدارة متكامل</span> <h1 class="hero-title">عيادة طب الأسنان</h1> <p class="hero-subtitle">إدارة ذكية لعيادتك بلمسة واحدة</p>
+          </div>
         </div>
-
-        <div class="box">
-            <span>📅 المرضى</span>
-            <b>{{ today_patients|length }}</b>
+      </header> <!-- ═══════════ KPIs ═══════════ --> <div class="kpi-row">
+        <div class="kpi-card">
+          <span class="kpi-dot green"></span> <div class="kpi-icon green-bg">👥</div> <span class="kpi-value">{{ today_patients|length }}</span> <span class="kpi-label">مريض اليوم</span>
+        </div> <div class="kpi-card">
+          <span class="kpi-dot sky"></span> <div class="kpi-icon sky-bg">💰</div> <span class="kpi-value">{{ today_total }}</span> <span class="kpi-label">مدفوع (دج)</span>
+        </div> <div class="kpi-card">
+          <span class="kpi-dot amber"></span> <div class="kpi-icon amber-bg">📊</div> <span class="kpi-value">{{ t }}</span> <span class="kpi-label">متبقي (دج)</span>
         </div>
-    </div>
-</div>
-
-<!-- 🔷 MENU -->
-<div class="menu">
-    <a href="/add/"><span>➕</span> إضافة</a>
-    <a href="/appointment/"><span>📅</span> موعد</a>
-    <a href="/appointments/"><span>📆</span> مواعيد</a>
-    <a href="/debts/"><span>💰</span> ديون</a>
-    <a href="/patients/"><span>👥</span> المرضى</a>
-</div>
-
-<h3>📌 مواعيد اليوم</h3>
-
-{% for p in today_patients %}
-<div class="card">
-    <div class="card-header">
-        <div>
-            <strong style="font-size: 30px;">👤 {{ p.first_name }} {{ p.last_name }}</strong>
-            {% if p.has_appointment %}
-                <div style="color:var(--warning); font-size: 20px;">📅 لديه موعد مسبق</div>
-            {% endif %}
+      </div> <!-- ═══════════ MENU ═══════════ --> <div class="menu-section">
+        <p class="menu-label">⚡ الإجراءات السريعة</p> <div class="menu-grid">
+          <a href="/add/" class="menu-card">
+            <div class="menu-icon-circle menu-icon-green">➕</div> 
+            <span class="menu-title">إضافة مريض</span></a> 
+            <a href="/appointment/" class="menu-card">
+              <div class="menu-icon-circle menu-icon-teal">📅</div>
+               <span class="menu-title">حجز موعد</span>
+              </a> <a href="/appointments/" class="menu-card">
+                <div class="menu-icon-circle menu-icon-sky">📆</div> 
+                <span class="menu-title">المواعيد</span>
+              </a> <a href="/debts/" class="menu-card">
+                <div class="menu-icon-circle menu-icon-amber">💳</div> 
+                <span class="menu-title">الديون</span></a>
+                 <a href="/patients/" class="menu-card">
+                  <div class="menu-icon-circle menu-icon-indigo">👥</div>
+                   <span class="menu-title">المرضى</span></a> <a href="/" class="menu-card">
+                    <div class="menu-icon-circle menu-icon-rose">🏠</div>
+                     <span class="menu-title">الرئيسية</span></a>
         </div>
-        
-        {% if p.session_status == "done" %}
-            <span class="status-done">✔ تمت</span>
-        {% elif p.session_status == "not_done" %}
-            <span class="status-not">❌ لم تتم</span>
+      </div> <!-- ═══════════ TODAY ═══════════ --> <div class="today-section">
+        <div class="today-header">
+          <h2 class="today-title"><span class="dot-live"></span> مواعيد اليوم</h2> <span class="today-count">{{ today_patients|length }} موعد</span>
+        </div> {% if today_patients %}
+          {% for p in today_patients %}
+            <div class="apt-card {% if p.session_status == 'done' %}
+                done
+              {% elif p.session_status == 'not_done' %}
+                cancelled
+              {% else %}
+                pending
+              {% endif %}" id="p{{ p.id }}">
+              <!-- الصف العلوي --> <div class="apt-top-row">
+                <div class="apt-avatar-row">
+                  <div class="apt-avatar">{{ p.first_name|slice:':1' }}</div> <div>
+                    <div class="apt-name">{{ p.first_name }} {{ p.last_name }}</div> {% if p.has_appointment %}
+                      <div class="apt-time">📅 موعد مسبق</div>
+                    {% endif %}
+                  </div>
+                </div> {% if p.session_status == 'done' %}
+                  <span class="apt-badge done">✔ مكتمل</span>
+                {% elif p.session_status == 'not_done' %}
+                  <span class="apt-badge cancelled">✘ ملغي</span>
+                {% else %}
+                  <span class="apt-badge pending">⏳ قيد الانتظار</span>
+                {% endif %}
+              </div> <!-- تفاصيل العلاج --> <div class="apt-detail-row">
+                <span class="apt-detail-icon">🦷</span> <span>{{ p.treatment }}</span>
+              </div> {% if p.session_status == 'done' %}
+                <div class="apt-money">
+                  <div class="money-item">
+                    الإجمالي <span class="amount">{{ p.total_amount }}</span>
+                  </div> <div class="money-item">
+                    المدفوع <span class="amount">{{ p.paid_amount }}</span>
+                  </div> <div class="money-item danger">
+                    المتبقي <span class="amount">{{ p.remaining_amount }}</span>
+                  </div>
+                </div> <a href="/?edit={{ p.id }}" class="btn btn-outline" style="margin-top:10px;">✏️ تعديل البيانات</a>
+              {% elif p.session_status == 'not_done' %}
+                <a href="/?edit={{ p.id }}" class="btn btn-outline">✏️ تعديل الحالة</a>
+              {% else %}
+                <form method="POST" class="form-section">
+                  {% csrf_token %} <input type="hidden" name="patient_id" value="{{ p.id }}" /> <div class="form-row">
+                    <div class="form-group">
+                      <label>اللقب</label> <input type="text" name="last_name" value="{{ p.last_name }}" placeholder="اللقب" />
+                    </div> <div class="form-group">
+                      <label>الاسم</label> <input type="text" name="first_name" value="{{ p.first_name }}" placeholder="الاسم" />
+                    </div>
+                  </div> <div class="form-group">
+                    <label>نوع العلاج</label> 
+                    <input type="text" name="treatment" value="{{ p.treatment }}" placeholder="مثال: حشو ضرس" />
+                  </div> <div class="form-row">
+                    <div class="form-group">
+                      <label>الإجمالي (دج)</label> <input type="number" name="total_amount" value="{{ p.total_amount }}" placeholder="0" />
+                    </div> <div class="form-group">
+                      <label>المدفوع (دج)</label> <input type="number" name="paid_amount" value="{{ p.paid_amount }}" placeholder="0" />
+                    </div>
+                  </div> <button class="btn btn-primary" type="submit">💾 حفظ الجلسة وتأكيد</button>
+                </form> <a href="/?not_done={{ p.id }}"><button class="btn btn-danger-ghost" type="button" style="margin-top:8px;">❌ المريض لم يحضر</button></a>
+              {% endif %}
+            </div>
+          {% endfor %}
         {% else %}
-            <span class="status-pending">⏳ قادم</span>
+          <div class="empty-state">
+            <div class="empty-icon-wrap">📋</div> <p class="empty-title">لا توجد مواعيد اليوم</p> <p class="empty-desc">ابدأ بإضافة موعد جديد لمرضاك</p> <a href="/appointment/" class="btn btn-primary" style="width:auto; display:inline-flex;">➕ حجز موعد جديد</a>
+          </div>
         {% endif %}
+      </div>
     </div>
-
-    <div style="margin-bottom: 10px;">
-        <strong>💉 {{ p.treatment }}</strong>
-    </div>
-
-    {% if p.session_status == "done" %}
-        <div class="info-row">
-            <span>💰 {{ p.total_amount }}</span>
-            <span>💵 {{ p.paid_amount }}</span>
-            <span style="color: var(--danger);">💸 {{ p.remaining_amount }}</span>
-        </div>
-
-        <a href="/?edit={{ p.id }}" style="text-decoration: none;">
-            <button class="btn-edit">✏️ تعديل البيانات</button>
-        </a>
-
-    {% elif p.session_status == "not_done" %}
-        <a href="/?edit={{ p.id }}" style="text-decoration: none;">
-            <button class="btn-edit">✏️ تعديل الحالة</button>
-        </a>
-
-    {% endif %}
-
-    {% if p.session_status == "pending" %}
-    <form method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="patient_id" value="{{ p.id }}">
-
-        <div class="form-group">
-            <label style="font-size: 30px;">اللقب و الإسم</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" name="last_name" value="{{ p.last_name }}" placeholder="اللقب">
-                
-                <input  type="text" name="first_name" value="{{ p.first_name }}" placeholder="الاسم">
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label style="font-size: 30px;">نوع العلاج</label>
-            <input type="text" name="treatment" value="{{ p.treatment }}">
-        </div>
-
-        <div class="form-group" style="display: flex; gap: 10px;">
-            <div style="flex: 1;">
-                <label style="font-size: 30px;">إجمالي المبلغ</label>
-                <input type="number" name="total_amount" value="{{ p.total_amount }}">
-            </div>
-            <div style="flex: 1;">
-                <label style="font-size: 30px;">المبلغ المدفوع</label>
-                <input type="number" name="paid_amount" value="{{ p.paid_amount }}">
-            </div>
-        </div>
-
-        <button class="btn-save" type="submit">💾 حفظ الجلسة وتأكيد</button>
-    </form>
-
-    <a href="/?not_done={{ p.id }}" style="text-decoration: none;">
-        <button class="btn-no">❌ المريض لم يحضر</button>
-    </a>
-
-    {% elif p.session_status != "pending" %}
-        <div style="text-align: center; margin-top: 15px;">
-            <small style="color: var(--success); font-weight: 600;">✔ تم تسجيل كافة البيانات بنجاح</small>
-        </div>
-    {% endif %}
-</div>
-{% endfor %}
-
-</body>
+  </body>
 </html>
